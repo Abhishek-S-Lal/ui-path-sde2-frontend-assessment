@@ -53,9 +53,3 @@ Build a React UI component where a user enters address details: first name, last
   - Unit tests for `validations` and `useAddressData` maps; component tests for flows (pincode→state/city, state→city list, city→pincode sync).
 - Trade‑offs?
   - Chose simplicity (in‑memory data, prefix match) to focus on UX and correctness; real apps need authoritative data and normalization.
-
-### Next Steps
-- Swap data layer with a real pincode API; add optimistic updates and caching
-- Persist submissions; add reset and edit flows
-- Expand dataset and handle many‑to‑one pincode→city mapping
-- Add tests and improve accessibility coverage
