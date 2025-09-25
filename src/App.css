@@ -1,0 +1,19 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 768px) {
+  #root {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #root {
+    padding: 0.5rem;
+  }
+}
