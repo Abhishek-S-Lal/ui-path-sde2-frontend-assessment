@@ -14,8 +14,3 @@ function App() {
 
 export default App
 
-/*
-1. Address Componet
-  First name, Last Name, City, State, Pincode
-
-*/

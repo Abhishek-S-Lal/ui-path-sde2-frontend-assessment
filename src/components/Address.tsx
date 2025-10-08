@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useAddressData } from "../hooks/useAddressData";
 import type { CityType } from "../utils/data";
 import { ValidationUtils } from "../utils/validations";
@@ -54,17 +54,17 @@ const AddressForm = () => {
   }, [formData.state, getCitiesByState]);
 
   // Generic field update handler
-  const updateField = useCallback((field: keyof FormData, value: string) => {
+  const updateField = (field: keyof FormData, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({ ...prev, [field]: null }));
     }
-  }, [errors]);
+  };
 
   // Auto-fill logic for pincode changes
-  const handlePincodeChange = useCallback((pincode: string) => {
+  const handlePincodeChange = (pincode: string) => {
     updateField('pincode', pincode);
 
     if (pincode.length === 6) {
@@ -88,10 +88,10 @@ const AddressForm = () => {
         setErrors(prev => ({ ...prev, pincode: 'Invalid pincode' }));
       }
     }
-  }, [updateField, getLocationByPincode]);
+  };
 
   // Auto-fill logic for state changes
-  const handleStateChange = useCallback((stateId: string) => {
+  const handleStateChange = (stateId: string) => {
     updateField('state', stateId);
     
     // Reset city when state changes
@@ -104,10 +104,10 @@ const AddressForm = () => {
         setTimeout(() => cityRef.current?.focus(), 0);
       }
     }
-  }, [updateField, formData.city, getCityById]);
+  };
 
   // Auto-fill logic for city changes
-  const handleCityChange = useCallback((cityId: string) => {
+  const handleCityChange = (cityId: string) => {
     updateField('city', cityId);
 
     if (cityId) {
@@ -129,10 +129,10 @@ const AddressForm = () => {
         }));
       }
     }
-  }, [updateField, getCityById]);
+  };
 
   // Field blur handler for validation
-  const handleBlur = useCallback((field: keyof FormData) => {
+  const handleBlur = (field: keyof FormData) => {
     setTouched(prev => ({ ...prev, [field]: true }));
     
     let error: string | null = null;
@@ -153,10 +153,10 @@ const AddressForm = () => {
     }
     
     setErrors(prev => ({ ...prev, [field]: error }));
-  }, [formData]);
+  };
 
   // Form submission handler
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = () => {
     // Validate all fields
     const newErrors: Errors = {
       firstName: ValidationUtils.validateName(formData.firstName),
@@ -189,7 +189,7 @@ const AddressForm = () => {
       });
       alert('Address saved successfully!');
     }
-  }, [formData, getStateById, getCityById]);
+  };
 
   return (
     <div className="address-form">
@@ -199,8 +199,9 @@ const AddressForm = () => {
         {/* Name Fields Row */}
         <div className="name-row">
           <div className={`form-field ${errors.firstName && touched.firstName ? 'has-error' : ''}`}>
-            <label>First Name *</label>
+            <label htmlFor='firstname'>First Name *</label>
             <input
+              id="firstname"
               type="text"
               value={formData.firstName}
               onChange={(e) => updateField('firstName', e.target.value)}
@@ -213,8 +214,9 @@ const AddressForm = () => {
           </div>
 
           <div className={`form-field ${errors.lastName && touched.lastName ? 'has-error' : ''}`}>
-            <label>Last Name *</label>
+            <label htmlFor='lastname'>Last Name *</label>
             <input
+              id='lastname'
               type="text"
               value={formData.lastName}
               onChange={(e) => updateField('lastName', e.target.value)}
@@ -229,8 +231,9 @@ const AddressForm = () => {
 
         {/* Pincode Field */}
         <div className={`form-field ${errors.pincode && touched.pincode ? 'has-error' : ''}`}>
-          <label>Pincode *</label>
+          <label htmlFor="pincode">Pincode *</label>
           <input
+            id="pincode"
             type="text"
             value={formData.pincode}
             onChange={(e) => handlePincodeChange(e.target.value)}
@@ -246,8 +249,9 @@ const AddressForm = () => {
         {/* State and City Row */}
         <div className="location-row">
           <div className={`form-field ${errors.state && touched.state ? 'has-error' : ''}`}>
-            <label>State *</label>
+            <label htmlFor="state">State *</label>
             <select
+              id="state"
               value={formData.state}
               onChange={(e) => handleStateChange(e.target.value)}
               onBlur={() => handleBlur('state')}
@@ -265,8 +269,9 @@ const AddressForm = () => {
           </div>
 
           <div className={`form-field ${errors.city && touched.city ? 'has-error' : ''}`}>
-            <label>City *</label>
+            <label htmlFor="city">City *</label>
             <select
+              id="city"
               ref={cityRef}
               value={formData.city}
               onChange={(e) => handleCityChange(e.target.value)}
