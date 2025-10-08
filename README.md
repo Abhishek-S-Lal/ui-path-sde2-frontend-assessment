@@ -1,9 +1,9 @@
-## Frontend Interview Experience — Address Form with Pincode Auto‑Fill
+# UIPath SDE-2 Frontend Interview(Round 1) Experience 
 
 ![App screenshot](public/screenshot.png)
 
 ### Interview Question
-Build a small UI where a user enters address details: first name, last name, pincode, state, and city. The UI should:
+Build a React UI component where a user enters address details: first name, last name, pincode, state, and city. The UI should:
 - Auto‑fill state and city from a pincode, and keep state/city/pincode in sync
 - Validate inputs with clear error messaging
 - Handle edge cases like invalid pincode or changing state after selecting a city
@@ -53,9 +53,3 @@ Build a small UI where a user enters address details: first name, last name, pin
   - Unit tests for `validations` and `useAddressData` maps; component tests for flows (pincode→state/city, state→city list, city→pincode sync).
 - Trade‑offs?
   - Chose simplicity (in‑memory data, prefix match) to focus on UX and correctness; real apps need authoritative data and normalization.
-
-### Next Steps
-- Swap data layer with a real pincode API; add optimistic updates and caching
-- Persist submissions; add reset and edit flows
-- Expand dataset and handle many‑to‑one pincode→city mapping
-- Add tests and improve accessibility coverage
